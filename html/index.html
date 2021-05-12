@@ -1,0 +1,75 @@
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>商品MENU</title>
+      <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+        <h2>商品購入アプリ</h2>
+        <div class="">
+            CSVファイル名：<input type="text" id="csv_name"></input><br>
+            <button id="listMenu">メニューを出力する</button><br/>
+        <div>
+            メニュー:<br/><textarea id="result" class="menu-view-area"></textarea>
+        </div>
+        <div>
+            商品コード：<input id="buy_item_code" type="text"></input>
+            購入個数：<input id="buy_item_count" type="text"></input><br/>
+            <button id="order">商品追加</button><br/><br/>
+        </div>
+        <div>
+            注文商品一覧:<br/>
+            <textarea id="order_result" class="buy_item_area"></textarea>
+        </div>
+
+        <div class="">
+            <br/><button id="summary">合計金額表示</button><br/>
+        </div>
+
+        <div>
+            合計金額：<br/>
+            <textarea id="total_fee" class="total-fee-area"></textarea><br/>
+        </div>
+        <div>
+            <br/>支払金額入力：<input id="pay_money" type="text"></input><br/>
+            <br/><button id="payment">支払う</button><br/>
+        </div>
+        <div>
+            お釣り：<br/>
+            <textarea id="change_money" class="change-area"></textarea><br/>
+        </div>
+        </div>
+        <script type="text/javascript" src="./eel.js"></script>
+        <script>
+            listMenu.addEventListener('click', () => {
+                eel.main_1(csv_name.value)
+            })
+            order.addEventListener('click', () => {
+                eel.main_2(buy_item_code.value, buy_item_count.value)
+            })
+            summary.addEventListener('click', () => {
+                eel.main_3()
+            })
+            payment.addEventListener('click', () => {
+                eel.main_4(pay_money.value)
+            })
+
+            eel.expose(menu_view_js);
+            function menu_view_js(text){
+                result.value += text + "\n"
+            }
+            eel.expose(buy_item_view_js);
+            function buy_item_view_js(text){
+                order_result.value += text + "\n"
+            }
+            eel.expose(pay_money_js);
+            function pay_money_js(text){
+                total_fee.value += text + "\n"
+            }
+            eel.expose(change_money_js);
+            function change_money_js(text){
+                change_money.value += text + "\n"
+            }
+        </script>
+    </body>
+</html>
